@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  database:
+    image: mongo:6.0
+    container_name: receept-db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: receeptDB
+    volumes:
+      - mongo-data:/data/db
+      # copy the init script to the volume
+      - ./scripts:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  mongo-data:
